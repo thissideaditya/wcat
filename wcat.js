@@ -43,7 +43,7 @@ for (let i = 0; i < filesArr.length; i++){
 // console.log(content);
 
 let contentArr = content.split("\n"); // "\r\n" for windows laptop
-console.table(contentArr);
+// console.table(contentArr);
 
 // check if -s is presented
 let isSPresent = optionsArr.includes("-s")
@@ -51,7 +51,17 @@ if(isSPresent){
     for(let i = 0; i < contentArr.length; i++){
         if(contentArr[i] == "" && contentArr[i-1] == ""){
             contentArr[i] = null;
+        }else if(contentArr[i] == "" && contentArr[i-1] == null){
+            contentArr[i] = null;
         }
     }
 }
-console.table(contentArr)
+// console.table(contentArr)
+
+let tempArr = []
+for(let i = 0; i < contentArr.length; i++){
+    if(contentArr[i] != null){
+        tempArr[i] = contentArr[i]
+    }
+}
+console.table(tempArr)
