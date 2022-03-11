@@ -34,3 +34,24 @@ for (let i = 0; i < filesArr.length; i++){
 }
 
 // =============>content read and appending starts<=============//
+let content = "";
+for (let i = 0; i < filesArr.length; i++){
+    let fileContent = fs.readFileSync(filesArr[i]);
+    content = content + fileContent + "\n";  // "\r\n" for windows laptop
+                     
+}
+// console.log(content);
+
+let contentArr = content.split("\n"); // "\r\n" for windows laptop
+console.table(contentArr);
+
+// check if -s is presented
+let isSPresent = optionsArr.includes("-s")
+if(isSPresent){
+    for(let i = 0; i < contentArr.length; i++){
+        if(contentArr[i] == "" && contentArr[i-1] == ""){
+            contentArr[i] = null;
+        }
+    }
+}
+console.table(contentArr)
