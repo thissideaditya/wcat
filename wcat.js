@@ -45,60 +45,78 @@ for (let i = 0; i < filesArr.length; i++){
 let contentArr = content.split("\n"); // "\r\n" for windows laptop
 // console.table(contentArr);
 
-// check if -s is presented
-let isSPresent = optionsArr.includes("-s")
-if(isSPresent){
-    for(let i = 0; i < contentArr.length; i++){
-        if(contentArr[i] == "" && contentArr[i-1] == ""){
+//check if -s is present or not
+let tempArr = [];
+let isSPresent = optionsArr.includes("-s");
+if (isSPresent) {
+    for (let i = 1; i < contentArr.length; i++){
+        if (contentArr[i] == "" && contentArr[i - 1] == "") {
             contentArr[i] = null;
-        }else if(contentArr[i] == "" && contentArr[i-1] == null){
+        }
+        else if (contentArr[i] == "" && contentArr[i - 1] == null) {
             contentArr[i] = null;
         }
     }
-}
-// console.table(contentArr)
-
-let tempArr = []
-for(let i = 0; i < contentArr.length; i++){
-    if(contentArr[i] != null){
-        tempArr.push(contentArr[i])
-    }
-}
-console.log("data after removing extra lines\n", tempArr)
-
-let indexOfN = optionsArr.indexOf("-n")
-let indexOfB = optionsArr.indexOf("-b")
-// if -n or -b is not found, -1 is returned
-
-let finalOption = ""
-if(indexOfN != -1 && indexOfB != -1){
+    // console.table(contentArr);
     
-    if(indexOfN < indexOfB){
-        finalOption = "-n"
-    }else{
-        finalOption = "-b"
+    //push everything in tempArr except null
+    for (let i = 0; i < contentArr.length; i++){
+        if (contentArr[i] != null) {
+            tempArr.push(contentArr[i]);
+        }
+    }
+    // console.log("data after removing extra lines\n",tempArr);
+}
+
+contentArr = tempArr;
+
+let indexOfN = optionsArr.indexOf("-n");
+let indexOfB = optionsArr.indexOf("-b");
+//if -n or -b is not found , -1 is returned
+
+let finalOption = "";
+//if both -n and -b are present 
+if (indexOfN != -1 && indexOfB != -1) {
+    if (indexOfN < indexOfB) {
+        finalOption = "-n";
+    }
+    else {
+        finalOption = "-b";
     }
 }
-//either -n is present or -b is present
-else{
-    if(indexOfN != -1){
-        finalOption = "-n"
-    }else if(indexOfB != -1){
-        finalOption = "-b"
+//either -n is present or -b is present 
+else {
+    if (indexOfN != -1) {
+        finalOption = "-n";
+    }
+    else if (indexOfB != -1) {
+        finalOption="-b"
     }
 }
 
-// calling of functions by evaluating finalOption
-if(finalOption = "-n"){
-    modifyContentForN()
-}else if(finalOption = "-b"){
-    modifyContentForB()
+//calling of functions by evaluating finalOption
+if (finalOption == "-n") {
+    modifiyContentByN();
+}
+else if (finalOption == "-b") {
+    modifiyContentByB();
 }
 
-function modifyContentForN(){
-
+function modifiyContentByN() {
+    for (let i = 0; i < contentArr.length; i++) {
+        contentArr[i] = (i+1) +") " + contentArr[i];
+    }
 }
 
-function modifyContentForB(){
-    
+function modifiyContentByB() {
+    let count = 1;
+    for (let i = 0; i < contentArr.length; i++) {
+        if (contentArr[i] != "") {
+            contentArr[i] = count + ") " + contentArr[i];
+            count ++;
+        }
+    }
 }
+
+
+console.log(contentArr);
