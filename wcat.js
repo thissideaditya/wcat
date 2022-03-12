@@ -61,7 +61,44 @@ if(isSPresent){
 let tempArr = []
 for(let i = 0; i < contentArr.length; i++){
     if(contentArr[i] != null){
-        tempArr[i] = contentArr[i]
+        tempArr.push(contentArr[i])
     }
 }
-console.table(tempArr)
+console.log("data after removing extra lines\n", tempArr)
+
+let indexOfN = optionsArr.indexOf("-n")
+let indexOfB = optionsArr.indexOf("-b")
+// if -n or -b is not found, -1 is returned
+
+let finalOption = ""
+if(indexOfN != -1 && indexOfB != -1){
+    
+    if(indexOfN < indexOfB){
+        finalOption = "-n"
+    }else{
+        finalOption = "-b"
+    }
+}
+//either -n is present or -b is present
+else{
+    if(indexOfN != -1){
+        finalOption = "-n"
+    }else if(indexOfB != -1){
+        finalOption = "-b"
+    }
+}
+
+// calling of functions by evaluating finalOption
+if(finalOption = "-n"){
+    modifyContentForN()
+}else if(finalOption = "-b"){
+    modifyContentForB()
+}
+
+function modifyContentForN(){
+
+}
+
+function modifyContentForB(){
+    
+}
